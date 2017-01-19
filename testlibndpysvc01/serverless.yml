@@ -19,6 +19,13 @@ provider:
   stage: dev
   region: us-east-1
   profile: serverless
+  stackTags:
+    Name: Serverless Test msuhovec
+    Environment: dev
+    Contact: msuhovec@nd.edu
+    Owner: mark suhovecky
+    Description: Python Serverless Deploy
+    InceptDate: "2017-01-20"
 
 # you can add packaging information here
 #package:
