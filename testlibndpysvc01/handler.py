@@ -1,22 +1,34 @@
 import json
+import logging
 
-def hello(event, context):
+log = logging.getLogger()
+log.setLevel(logging.DEBUG)
+
+# this adds the component-level `lib` directory to the Python import path
+import sys, os
+# get this file's directory independent of where it's run from
+here = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(here, "../"))
+sys.path.append(os.path.join(here, "../vendored"))
+
+# import the shared library, now anything in component/lib/__init__.py can be
+# referenced as `lib.something`
+import lib
+
+
+def read(event, context):
+    log.debug("Received event {}".format(json.dumps(event)))
+    redirects = lib.all_redirects()
+
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
+        "message": "What, me worry?",
+        "input": event['queryStringParameters']
     }
 
     response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
+        "statusCode": 302,
+	"body": json.dumps(body)
     }
+
 
     return response
-
-    # Use this code if you don't use the http event with the LAMBDA-PROXY integration
-    """
-    return {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "event": event
-    }
-    """
