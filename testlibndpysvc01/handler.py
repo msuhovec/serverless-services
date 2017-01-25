@@ -19,6 +19,7 @@ import lib
 def redirect(event, context):
 	log.debug("received event {}".format(json.dumps(event)))
 	redirects = lib.all_redirects()
+	log.debug("received redirects {}".format(json.dumps(redirects)))
 
 	statuscode = 302
 	headers = {}
@@ -33,7 +34,7 @@ def redirect(event, context):
 		statuscode = 404
 		body['message'] = "Redirect Code was Not Found"
 	else:
-		headers['Location'] = redirects[event['queryStringParameters']['redirect_code']] 
+		headers['Location'] = redirects[event['queryStringParameters']['redirect_code']]['purlUri'] 
 
 	response = {
 		"statusCode": statuscode,
