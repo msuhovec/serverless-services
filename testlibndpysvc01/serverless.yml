@@ -37,11 +37,11 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.read
+  redirect:
+    handler: handler.redirect
     events:
       - http:
-          path: purl/read
+          path: purl/redirect
           method: get
 
 #    The following are a few example events you can configure
